@@ -12,7 +12,6 @@
     "bulma": "^0.9.1",
     "chart.js": "^2.9.3",
     "compression": "^1.7.4",
-    "date-fns": "^2.16.1",
     "polka": "next",
     "rollup-plugin-css-only": "^2.1.0",
     "sirv": "^1.0.6"
