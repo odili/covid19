@@ -1,8 +1,26 @@
 <script context="module">
-  export async function preload(page) {
-    console.log(page);
+  import parsers from "../data/parsers.js";
+  import stateNames from "../data/stateNames";
 
-    return { state: page.params["state"] };
+  export async function preload(page) {
+    const state = page.params["state"];
+
+    if (stateNames.find((s) => s.abbreviation === state) === undefined) {
+      this.error(404, "State Nout Found");
+      return;
+    }
+
+    try {
+      const res = await this.fetch(
+        "https://api.covidtracking.com/v1/states/current.json"
+      );
+      const data = await res.json();
+      const stateData = data.find((s) => s.state === state);
+
+      return { usStat: parsers.stateParser(stateData), state };
+    } catch (e) {
+      throw new Error(e.message);
+    }
   }
 </script>
 
@@ -11,6 +29,7 @@
   import CovidChat from "../components/CovidChat.svelte";
   import TableContainer from "../components/TableContainer.svelte";
   export let state;
+  export let usStat;
 </script>
 
 <svelte:head>
@@ -23,5 +42,5 @@
   </div>
 </div>
 
-<CovidStat />
+<CovidStat {usStat} />
 <CovidChat />

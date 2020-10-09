@@ -7,7 +7,16 @@
         "https://api.covidtracking.com/v1/us/current.json"
       );
       const data = await res.json();
-      return { usStat: parsers.usStats(data) };
+
+      const response = await this.fetch(
+        "https://api.covidtracking.com/v1/us/daily.json"
+      );
+      const rawChat = await response.json();
+
+      return {
+        usStat: parsers.usStats(data),
+        chartData: parsers.historicUS(rawChat),
+      };
     } catch (e) {
       throw new Error(e.message);
     }
@@ -20,7 +29,7 @@
   import TableContainer from "../components/TableContainer.svelte";
 
   export let usStat;
-  console.log(usStat);
+  export let chartData;
 </script>
 
 <svelte:head>
@@ -33,6 +42,6 @@
   </div>
 </div>
 
-<CovidStat />
-<CovidChat />
+<CovidStat {usStat} />
+<CovidChat {chartData} />
 <TableContainer />
