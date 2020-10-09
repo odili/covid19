@@ -17,7 +17,17 @@
       const data = await res.json();
       const stateData = data.find((s) => s.state === state);
 
-      return { usStat: parsers.stateParser(stateData), state };
+      const response = await this.fetch(
+        "https://api.covidtracking.com/v1/states/daily.json"
+      );
+      const rawChat = await response.json();
+      const stateChart = rawChat.filter((s) => s.state === state);
+
+      return {
+        usStat: parsers.stateParser(stateData),
+        state,
+        chartData: parsers.historicUS(stateChart),
+      };
     } catch (e) {
       throw new Error(e.message);
     }
@@ -26,10 +36,11 @@
 
 <script>
   import CovidStat from "../components/CovidStat.svelte";
-  import CovidChat from "../components/CovidChat.svelte";
+  import CovidChat from "../components/CovidChart.svelte";
   import TableContainer from "../components/TableContainer.svelte";
   export let state;
   export let usStat;
+  export let chartData;
 </script>
 
 <svelte:head>
@@ -43,4 +54,4 @@
 </div>
 
 <CovidStat {usStat} />
-<CovidChat />
+<CovidChat {chartData} {state} />

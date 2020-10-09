@@ -25,7 +25,7 @@
 
 <script>
   import CovidStat from "../components/CovidStat.svelte";
-  import CovidChat from "../components/CovidChat.svelte";
+  import CovidChat from "../components/CovidChart.svelte";
   import TableContainer from "../components/TableContainer.svelte";
 
   export let usStat;

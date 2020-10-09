@@ -67,11 +67,18 @@ function historicUS(historicData){
     return prev
   }, [])
 }
-
+function dateFMT(date){
+  let dateStr = ''
+  const str = String(date)
+  dateStr += str.slice(0, 4) + '/'
+  dateStr += str.slice(4, 6) + '/'
+  dateStr += str.slice(6)
+  return dateStr
+}
 function parseChart(historicData, key, label, color) {
   const chartData = historicData.map((data) => {
     return {
-      x: data.date,
+      x: new Date(dateFMT(data.date)),
       y: data[key] || 0,
     };
   });
