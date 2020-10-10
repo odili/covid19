@@ -13,9 +13,14 @@
       );
       const rawChat = await response.json();
 
+      const tableResponse = await this.fetch(
+        "https://api.covidtracking.com/v1/states/current.json"
+      );
+      const rawTableData = await tableResponse.json();
       return {
         usStat: parsers.usStats(data),
         chartData: parsers.historicUS(rawChat),
+        tableData: parsers.tableParser(rawTableData),
       };
     } catch (e) {
       throw new Error(e.message);
@@ -30,6 +35,7 @@
 
   export let usStat;
   export let chartData;
+  export let tableData;
 </script>
 
 <svelte:head>
@@ -44,4 +50,4 @@
 
 <CovidStat {usStat} />
 <CovidChat {chartData} />
-<TableContainer />
+<TableContainer {tableData} />

@@ -1,4 +1,5 @@
 import format from './format';
+import stateNames from './stateNames';
 
 function usStats(data){
   const [usStatRaw] = data
@@ -91,8 +92,21 @@ function parseChart(historicData, key, label, color) {
   };
 }
 
+function tableParser(data){
+  return data.map(s => {
+    const stateName = stateNames.find(d => d.abbreviation === s.state)
+    return {
+      state: stateName,
+      cases: s.positive,
+      deaths: s.death,
+      tested: s.totalTestResults
+    }
+  })
+}
+
 export default {
   usStats,
   stateParser, 
-  historicUS
+  historicUS,
+  tableParser
 }

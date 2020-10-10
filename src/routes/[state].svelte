@@ -27,6 +27,7 @@
         usStat: parsers.stateParser(stateData),
         state,
         chartData: parsers.historicUS(stateChart),
+        tableData: parsers.tableParser(data),
       };
     } catch (e) {
       throw new Error(e.message);
