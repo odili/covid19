@@ -96,7 +96,8 @@ function tableParser(data){
   return data.map(s => {
     const stateName = stateNames.find(d => d.abbreviation === s.state)
     return {
-      state: stateName,
+      abbreviation: s.state,
+      name: stateName.name,
       cases: s.positive,
       deaths: s.death,
       tested: s.totalTestResults

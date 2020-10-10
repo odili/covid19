@@ -24,14 +24,12 @@
         </tr>
       </thead>
       <tbody>
-        {#each tableData as data (data.state.name)}
+        {#each tableData as data}
           <tr>
-            <td>
-              <a href={`/${data.state.abbreviation}`}>{data.state.name}</a>
-            </td>
-            <td>{data.cases}</td>
-            <td>{data.deaths}</td>
-            <td>{data.tested}</td>
+            <td><a href={`/${data.abbreviation}`}>{data.name}</a></td>
+            <td>{data.cases.toLocaleString()}</td>
+            <td>{data.deaths.toLocaleString()}</td>
+            <td>{data.tested.toLocaleString()}</td>
           </tr>
         {/each}
       </tbody>
