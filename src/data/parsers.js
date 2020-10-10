@@ -4,7 +4,7 @@ import stateNames from './stateNames';
 function usStats(data){
   const [usStatRaw] = data
 
-  const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit',   };
+  const options = {  year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit',   };
 
   return {
     cases: format.number(usStatRaw.positive),

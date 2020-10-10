@@ -26,7 +26,7 @@
       <tbody>
         {#each tableData as data}
           <tr>
-            <td><a href={`/${data.abbreviation}`}>{data.name}</a></td>
+            <td><a rel="prefetch" href={`/${data.abbreviation}`}>{data.name}</a></td>
             <td>{data.cases.toLocaleString()}</td>
             <td>{data.deaths.toLocaleString()}</td>
             <td>{data.tested.toLocaleString()}</td>
